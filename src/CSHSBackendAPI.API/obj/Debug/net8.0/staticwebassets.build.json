@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "iGzPIrYYCUndPZ5KZnjlJcm5aCKGAQoLvcubnvrXBHI=",
+  "Source": "CSHSBackendAPI.API",
+  "BasePath": "_content/CSHSBackendAPI.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

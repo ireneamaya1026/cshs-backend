@@ -1,0 +1,6 @@
+@CSHSBackendAPI.API_HostAddress = http://localhost:5078
+
+GET {{CSHSBackendAPI.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

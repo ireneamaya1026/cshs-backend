@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dui1Fn1a5LNR8AQ6zQlxB4pVbwM835Kstqf4mTm07eg2BSPMRKfv8i6fayXkvlW2fy638lAIFzyoxjsS0KTl/A==",
+  "success": true,
+  "projectFilePath": "C:\\extra\\cshs-backend\\src\\CSHSBackendAPI.Application\\CSHSBackendAPI.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\RDA\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
