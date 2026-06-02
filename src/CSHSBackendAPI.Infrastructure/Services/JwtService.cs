@@ -14,7 +14,7 @@ public class JwtService : IJwtService
 
     public JwtService(IConfiguration config) => _config = config;
 
-    public string GenerateToken(User user)
+    public string GenerateToken(SystemUser user)
     {
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
@@ -24,9 +24,8 @@ public class JwtService : IJwtService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Role.ToString()),
-            new Claim("schoolSlug", user.SchoolSlug),
             new Claim("campusId", user.CampusId?.ToString() ?? ""),
-            new Claim("fullName", $"{user.FirstName} {user.LastName}")
+            new Claim("fullName", user.Name)
         };
 
         var token = new JwtSecurityToken(
@@ -54,7 +53,6 @@ public class JwtService : IJwtService
         {
             var handler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
-
             handler.ValidateToken(token, new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -65,12 +63,8 @@ public class JwtService : IJwtService
                 ValidAudience = _config["Jwt:Audience"],
                 ValidateLifetime = true
             }, out _);
-
             return true;
         }
-        catch
-        {
-            return false;
-        }
+        catch { return false; }
     }
 }

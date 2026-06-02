@@ -288,3 +288,4 @@ C:\extra\cshs-backend\src\CSHSBackendAPI.API\obj\Debug\net8.0\refint\CSHSBackend
 C:\extra\cshs-backend\src\CSHSBackendAPI.API\obj\Debug\net8.0\CSHSBackendAPI.API.pdb
 C:\extra\cshs-backend\src\CSHSBackendAPI.API\obj\Debug\net8.0\CSHSBackendAPI.API.genruntimeconfig.cache
 C:\extra\cshs-backend\src\CSHSBackendAPI.API\obj\Debug\net8.0\ref\CSHSBackendAPI.API.dll
+C:\extra\cshs-backend\src\CSHSBackendAPI.API\obj\Debug\net8.0\CSHSBackendAPI.API.sourcelink.json

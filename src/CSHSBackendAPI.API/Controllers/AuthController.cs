@@ -20,8 +20,7 @@ public class AuthController : ControllerBase
         var command = new LoginCommand
         {
             Email = request.Email,
-            Password = request.Password,
-            SchoolSlug = request.SchoolSlug
+            Password = request.Password
         };
 
         var result = await _loginHandler.Handle(command);
@@ -29,10 +28,9 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("hash/{password}")]
-public IActionResult GetHash(string password)
-{
-    var hash = BCrypt.Net.BCrypt.HashPassword(password);
-    return Ok(hash);
+    public IActionResult GetHash(string password)
+    {
+        var hash = BCrypt.Net.BCrypt.HashPassword(password);
+        return Ok(hash);
+    }
 }
-}
-

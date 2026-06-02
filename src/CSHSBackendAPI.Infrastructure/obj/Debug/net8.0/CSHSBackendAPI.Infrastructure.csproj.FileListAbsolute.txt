@@ -36,3 +36,4 @@ C:\extra\cshs-backend\src\CSHSBackendAPI.Infrastructure\obj\Debug\net8.0\refint\
 C:\extra\cshs-backend\src\CSHSBackendAPI.Infrastructure\obj\Debug\net8.0\CSHSBackendAPI.Infrastructure.pdb
 C:\extra\cshs-backend\src\CSHSBackendAPI.Infrastructure\obj\Debug\net8.0\CSHSBackendAPI.Infrastructure.genruntimeconfig.cache
 C:\extra\cshs-backend\src\CSHSBackendAPI.Infrastructure\obj\Debug\net8.0\ref\CSHSBackendAPI.Infrastructure.dll
+C:\extra\cshs-backend\src\CSHSBackendAPI.Infrastructure\obj\Debug\net8.0\CSHSBackendAPI.Infrastructure.sourcelink.json

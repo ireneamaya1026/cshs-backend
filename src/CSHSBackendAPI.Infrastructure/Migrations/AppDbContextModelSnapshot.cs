@@ -22,23 +22,510 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Announcement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPinned")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TargetAudience")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Announcements");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.AttendanceRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AbsenceEquivalent")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DayOfWeek")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SubjectLoadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectLoadId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("AttendanceRecords");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.BasicEdGrade", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ApprovedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GradeLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("InitialGrade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal?>("Performance")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("QuarterlyExam")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("RejectionNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SubjectArea")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("SubjectLoadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TeacherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Transmuted")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("WrittenWorks")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectLoadId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("BasicEdGrades");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactNumber")
+                    b.Property<string>("CampusKey")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("CollegeProgramsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool>("HasBasicEd")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCollege")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("SortOrder")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId", "CampusKey")
+                        .IsUnique();
+
+                    b.ToTable("Campuses");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Clearance", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("HasUnpaidBalance")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFullyCleared")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Clearances");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.ClearanceDeptSignoff", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ClearanceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ClearedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ClearedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ClearedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeptId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeptLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAutoCleared")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCleared")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClearanceId");
+
+                    b.HasIndex("ClearedById");
+
+                    b.ToTable("ClearanceDeptSignoffs");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.CollegeGrade", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ApprovedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descriptor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Finals")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateOnly?>("IncDeadline")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("IncResolvedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Midterm")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal?>("PointGrade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal?>("Prelim")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("Program")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RejectionNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Semester")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("SemesterGrade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("SpecialGrade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SubjectLoadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TeacherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("YearLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectLoadId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("CollegeGrades");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Discount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AppliesTo")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -46,114 +533,1198 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsStackable")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchoolId")
+                    b.Property<bool>("RequiresValidation")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Discounts");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentRequest", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ClaimSlip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ClearanceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DocumentLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ReleasedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ReleasedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ReleasedTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RequiresClearance")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("ReleasedById");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("DocumentRequests");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentStatusHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ByName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ByUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("RequestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("DocumentStatusHistories");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Enrollment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("AssessedFees")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateOnly?>("Birthdate")
+                        .HasColumnType("date");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ConvertedToStudent")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrentStep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DiscountJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GradeLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasMissingDocs")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lrn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NetFee")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("PreviousStep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Program")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReferenceNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Source")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SourceReferenceNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("StudentType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Suffix")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WorkflowId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("WorkflowVersion")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Enrollments");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.EnrollmentPayment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DiscountsAppliedJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("EnrollmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FeeBreakdownJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("PaymentDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("RecordedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.HasIndex("RecordedById");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("EnrollmentPayments");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.EnrollmentStageHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ActionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ByUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EnrollmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ExtraDataJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromStep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Step")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.ToTable("EnrollmentStageHistories");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.FeeStructure", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Books")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<long?>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("EnrollmentFee")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("GradeLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Lab")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Misc")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Other")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StudentType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalFee")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<decimal>("Tuition")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("FeeStructures");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.FormTemplate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FieldsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FormType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("FormTemplates");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeActivity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("MaxScore")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("int");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("SortOrder")
+                        .HasColumnType("smallint");
+
+                    b.Property<long>("SubjectLoadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Weight")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("SubjectLoadId");
+
+                    b.ToTable("GradeActivities");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeAudit", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ByUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("RequestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("GradeChangeAudits");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeRequest", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("ApprovedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ApprovedByName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("BasicGradeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CollegeGradeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GradeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("OriginalGrade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PostedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("PostedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RejectionNote")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("RequestedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("RequestedByName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RequestedGrade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasicGradeId");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("CollegeGradeId");
+
+                    b.HasIndex("RequestedById");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("GradeChangeRequests");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.PushToken", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUsedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Platform")
+                        .HasColumnType("int");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Campuses");
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("PushTokens");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.RolePermission", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PagesJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TabsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.School", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactEmail")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<string>("CoreValuesJson")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("GoalsJson")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<string>("LoginAccentBar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoginCardBorder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoginGradientEnd")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoginGradientStart")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mission")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Motto")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
+                    b.Property<string>("Phone")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<string>("Plan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortalBgStyle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortalLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortalTagline")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortalWelcome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimaryColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondaryColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupportLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("Uuid")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("Slug")
-                        .IsUnique();
+                    b.Property<string>("Vision")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WebsiteUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Schools");
                 });
 
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.User", b =>
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SchoolYear", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CampusId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("DateEnd")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("DateStart")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("YearLabel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("SchoolYears");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Student", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateOnly?>("Birthdate")
+                        .HasColumnType("date");
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ConvertedFromEnrollmentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GradeLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lrn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortalPasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Program")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suffix")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.StudentActivityScore", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("RecordedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("RecordedById");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentActivityScores");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SubjectLoad", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GradeLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Program")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ScheduleJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SchoolYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Section")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Semester")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubjectArea")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TeacherId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TeacherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Units")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("YearLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampusId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("SubjectLoads");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SystemUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CampusId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomPermissionsJson")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<DateTime?>("LastLoginAt")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -163,22 +1734,242 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SchoolSlug")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("Email", "SchoolSlug")
+                    b.HasIndex("SchoolId", "Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("SystemUsers");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowAudit", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ActionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ByRole")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ByUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("EntityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromStep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ToStep")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WorkflowId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("WorkflowAudits");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowDefinition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatedById")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermissionsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("SchoolId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("StepsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("Version")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("WorkflowId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("WorkflowDefinitions");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Announcement", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.AttendanceRecord", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany("AttendanceRecords")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SubjectLoad", "SubjectLoad")
+                        .WithMany("AttendanceRecords")
+                        .HasForeignKey("SubjectLoadId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("SubjectLoad");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.BasicEdGrade", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany("BasicEdGrades")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SubjectLoad", "SubjectLoad")
+                        .WithMany("BasicEdGrades")
+                        .HasForeignKey("SubjectLoadId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("SubjectLoad");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
@@ -192,24 +1983,550 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Navigation("School");
                 });
 
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.User", b =>
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Clearance", b =>
                 {
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.ClearanceDeptSignoff", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Clearance", "Clearance")
+                        .WithMany("DeptSignoffs")
+                        .HasForeignKey("ClearanceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "ClearedBy")
+                        .WithMany()
+                        .HasForeignKey("ClearedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Clearance");
+
+                    b.Navigation("ClearedBy");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.CollegeGrade", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany("CollegeGrades")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SubjectLoad", "SubjectLoad")
+                        .WithMany("CollegeGrades")
+                        .HasForeignKey("SubjectLoadId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("SubjectLoad");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Discount", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentRequest", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "ReleasedBy")
+                        .WithMany()
+                        .HasForeignKey("ReleasedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("ReleasedBy");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentStatusHistory", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.DocumentRequest", "Request")
+                        .WithMany("StatusHistories")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Enrollment", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.EnrollmentPayment", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Enrollment", "Enrollment")
+                        .WithMany("Payments")
+                        .HasForeignKey("EnrollmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "RecordedBy")
+                        .WithMany()
+                        .HasForeignKey("RecordedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Enrollment");
+
+                    b.Navigation("RecordedBy");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.EnrollmentStageHistory", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Enrollment", "Enrollment")
+                        .WithMany("StageHistories")
+                        .HasForeignKey("EnrollmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Enrollment");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.FeeStructure", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.FormTemplate", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeActivity", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SubjectLoad", "SubjectLoad")
+                        .WithMany("GradeActivities")
+                        .HasForeignKey("SubjectLoadId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
+
+                    b.Navigation("SubjectLoad");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeAudit", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.GradeChangeRequest", "Request")
+                        .WithMany("Audits")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeRequest", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.BasicEdGrade", "BasicGrade")
+                        .WithMany()
+                        .HasForeignKey("BasicGradeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.CollegeGrade", "CollegeGrade")
+                        .WithMany()
+                        .HasForeignKey("CollegeGradeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "RequestedBy")
+                        .WithMany()
+                        .HasForeignKey("RequestedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BasicGrade");
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("CollegeGrade");
+
+                    b.Navigation("RequestedBy");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.PushToken", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("School");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.RolePermission", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SchoolYear", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany("SchoolYears")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Student", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany("Students")
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.StudentActivityScore", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.GradeActivity", "Activity")
+                        .WithMany("StudentScores")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "RecordedBy")
+                        .WithMany()
+                        .HasForeignKey("RecordedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("RecordedBy");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SubjectLoad", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany()
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.SystemUser", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+
+                    b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SystemUser", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
+                        .WithMany("SystemUsers")
+                        .HasForeignKey("CampusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany("SystemUsers")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campus");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowAudit", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowDefinition", b =>
+                {
+                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("Enrollments");
+
+                    b.Navigation("Students");
+
+                    b.Navigation("SystemUsers");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Clearance", b =>
+                {
+                    b.Navigation("DeptSignoffs");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentRequest", b =>
+                {
+                    b.Navigation("StatusHistories");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Enrollment", b =>
+                {
+                    b.Navigation("Payments");
+
+                    b.Navigation("StageHistories");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeActivity", b =>
+                {
+                    b.Navigation("StudentScores");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeRequest", b =>
+                {
+                    b.Navigation("Audits");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.School", b =>
                 {
                     b.Navigation("Campuses");
+
+                    b.Navigation("SchoolYears");
+
+                    b.Navigation("SystemUsers");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Student", b =>
+                {
+                    b.Navigation("AttendanceRecords");
+
+                    b.Navigation("BasicEdGrades");
+
+                    b.Navigation("CollegeGrades");
+
+                    b.Navigation("Enrollments");
+                });
+
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SubjectLoad", b =>
+                {
+                    b.Navigation("AttendanceRecords");
+
+                    b.Navigation("BasicEdGrades");
+
+                    b.Navigation("CollegeGrades");
+
+                    b.Navigation("GradeActivities");
                 });
 #pragma warning restore 612, 618
         }

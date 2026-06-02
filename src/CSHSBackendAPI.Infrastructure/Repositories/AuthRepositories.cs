@@ -11,29 +11,28 @@ public class AuthRepository : IAuthRepository
 
     public AuthRepository(AppDbContext context) => _context = context;
 
-    public async Task<User?> GetByEmailAsync(string email, string schoolSlug) =>
-        await _context.Users
+    public async Task<SystemUser?> GetByEmailAsync(string email, string schoolSlug) =>
+        await _context.SystemUsers
             .Include(u => u.Campus)
             .FirstOrDefaultAsync(u =>
                 u.Email == email &&
-                u.SchoolSlug == schoolSlug &&
-                !u.IsDeleted);
+                u.IsActive);
 
-    public async Task<User?> GetByIdAsync(int id) =>
-        await _context.Users
+    public async Task<SystemUser?> GetByIdAsync(int id) =>
+        await _context.SystemUsers
             .Include(u => u.Campus)
-            .FirstOrDefaultAsync(u => u.Id == id && !u.IsDeleted);
+            .FirstOrDefaultAsync(u => u.Id == id && u.IsActive);
 
-    public async Task<User> CreateAsync(User user)
+    public async Task<SystemUser> CreateAsync(SystemUser user)
     {
-        _context.Users.Add(user);
+        _context.SystemUsers.Add(user);
         await _context.SaveChangesAsync();
         return user;
     }
 
-    public async Task UpdateAsync(User user)
+    public async Task UpdateAsync(SystemUser user)
     {
-        _context.Users.Update(user);
+        _context.SystemUsers.Update(user);
         await _context.SaveChangesAsync();
     }
 }

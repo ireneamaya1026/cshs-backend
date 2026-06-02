@@ -14,17 +14,17 @@ public class SchoolRepository : ISchoolRepository
     public async Task<School?> GetByIdAsync(int id) =>
         await _context.Schools
             .Include(s => s.Campuses)
-            .FirstOrDefaultAsync(s => s.Id == id && !s.IsDeleted);
+            .FirstOrDefaultAsync(s => s.Id == id);
 
     public async Task<School?> GetBySlugAsync(string slug) =>
         await _context.Schools
             .Include(s => s.Campuses)
-            .FirstOrDefaultAsync(s => s.Slug == slug && !s.IsDeleted);
+            .FirstOrDefaultAsync(s => s.ShortName == slug);
 
     public async Task<IEnumerable<School>> GetAllAsync() =>
         await _context.Schools
             .Include(s => s.Campuses)
-            .Where(s => !s.IsDeleted)
+            .Where(s => s.IsActive)
             .ToListAsync();
 
     public async Task<School> CreateAsync(School school)
@@ -45,11 +45,11 @@ public class SchoolRepository : ISchoolRepository
         var school = await GetByIdAsync(id);
         if (school is not null)
         {
-            school.IsDeleted = true;  // soft delete
+            school.IsActive = false;
             await _context.SaveChangesAsync();
         }
     }
 
     public async Task<bool> SlugExistsAsync(string slug) =>
-        await _context.Schools.AnyAsync(s => s.Slug == slug && !s.IsDeleted);
+        await _context.Schools.AnyAsync(s => s.ShortName == slug);
 }

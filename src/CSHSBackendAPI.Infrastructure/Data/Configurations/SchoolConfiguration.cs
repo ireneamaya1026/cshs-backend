@@ -12,28 +12,37 @@ public class SchoolConfiguration : IEntityTypeConfiguration<School>
 
         builder.Property(s => s.Name)
             .IsRequired()
-            .HasMaxLength(150);
+            .HasMaxLength(200);
 
-        builder.Property(s => s.Slug)
+        builder.Property(s => s.ShortName)
             .IsRequired()
-            .HasMaxLength(50);
-
-        builder.HasIndex(s => s.Slug)
-            .IsUnique();   // no two schools can have the same slug
-
-        builder.Property(s => s.Address)
-            .HasMaxLength(255);
-
-        builder.Property(s => s.ContactEmail)
-            .HasMaxLength(150);
-
-        builder.Property(s => s.ContactNumber)
             .HasMaxLength(20);
 
-        // One school has many campuses
+        builder.Property(s => s.Email)
+            .HasMaxLength(150);
+
+        builder.Property(s => s.Phone)
+            .HasMaxLength(50);
+
+        builder.Property(s => s.Plan)
+            .HasConversion<string>();
+
+        builder.Property(s => s.PortalBgStyle)
+            .HasConversion<string>();
+
         builder.HasMany(s => s.Campuses)
             .WithOne(c => c.School)
             .HasForeignKey(c => c.SchoolId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(s => s.SchoolYears)
+            .WithOne(sy => sy.School)
+            .HasForeignKey(sy => sy.SchoolId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(s => s.SystemUsers)
+            .WithOne(u => u.School)
+            .HasForeignKey(u => u.SchoolId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

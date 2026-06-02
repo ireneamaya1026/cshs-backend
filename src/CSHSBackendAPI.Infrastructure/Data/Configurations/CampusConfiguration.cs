@@ -12,18 +12,29 @@ public class CampusConfiguration : IEntityTypeConfiguration<Campus>
 
         builder.Property(c => c.Name)
             .IsRequired()
+            .HasMaxLength(200);
+
+        builder.Property(c => c.CampusKey)
+            .IsRequired()
+            .HasMaxLength(30);
+
+        builder.HasIndex(c => new { c.SchoolId, c.CampusKey })
+            .IsUnique();
+
+        builder.Property(c => c.Phone)
+            .HasMaxLength(50);
+
+        builder.Property(c => c.Email)
             .HasMaxLength(150);
 
-        builder.Property(c => c.Address)
-            .HasMaxLength(255);
-
-        builder.Property(c => c.ContactNumber)
-            .HasMaxLength(20);
-
-        // One campus has many users
-        builder.HasMany(c => c.Users)
+        builder.HasMany(c => c.SystemUsers)
             .WithOne(u => u.Campus)
             .HasForeignKey(u => u.CampusId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(c => c.Students)
+            .WithOne(s => s.Campus)
+            .HasForeignKey(s => s.CampusId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
