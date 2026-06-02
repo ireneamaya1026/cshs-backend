@@ -28,3 +28,4 @@ C:\extra\cshs-backend\src\CSHSBackendAPI.Application\obj\Debug\net8.0\CSHSBacken
 C:\extra\cshs-backend\src\CSHSBackendAPI.Application\obj\Debug\net8.0\refint\CSHSBackendAPI.Application.dll
 C:\extra\cshs-backend\src\CSHSBackendAPI.Application\obj\Debug\net8.0\CSHSBackendAPI.Application.pdb
 C:\extra\cshs-backend\src\CSHSBackendAPI.Application\obj\Debug\net8.0\ref\CSHSBackendAPI.Application.dll
+C:\extra\cshs-backend\src\CSHSBackendAPI.Application\obj\Debug\net8.0\CSHSBackendAPI.Application.sourcelink.json

@@ -42,9 +42,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
         policy.WithOrigins(
-                "http://localhost:5173",         // Vite
-                "http://localhost:3000",         // React CRA
-                "https://enroll.yourdomain.com" // Production
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "http://localhost:4200"
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -60,7 +60,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
-app.UseMiddleware<TenantMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowReactApp");
 app.UseAuthentication();

@@ -15,26 +15,10 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Tenant service must be registered first
-        // Scoped = one instance per HTTP request
-        services.AddScoped<ITenantService, TenantService>();
-
-        // DbContext uses tenant connection string per request
-        services.AddDbContext<AppDbContext>((provider, options) =>
-        {
-            var tenantService = provider.GetRequiredService<ITenantService>();
-
-            // SuperAdmin requests use a default master connection
-            var connectionString = configuration.GetConnectionString("master")!;
-
-            try
-            {
-                connectionString = tenantService.GetConnectionString();
-            }
-            catch { /* no tenant set yet, use master */ }
-
-            options.UseSqlServer(connectionString);
-        });
+        // Single connection string — one DB per school deployment
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(
+                configuration.GetConnectionString("DefaultConnection")));
 
         // Repositories
         services.AddScoped<ISchoolRepository, SchoolRepository>();
