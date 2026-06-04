@@ -12,5 +12,5 @@ public class SchoolYear : BaseEntity
     public bool IsLocked { get; set; } = false;
 
     // Relationships
-    public School School { get; set; } = null!;
+     
 }

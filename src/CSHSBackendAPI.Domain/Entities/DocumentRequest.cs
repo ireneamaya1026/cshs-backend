@@ -26,7 +26,7 @@ public class DocumentRequest : BaseEntity
     public long? ReleasedById { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Campus Campus { get; set; } = null!;
     public Student Student { get; set; } = null!;
     public SystemUser? ReleasedBy { get; set; }

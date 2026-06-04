@@ -5,7 +5,6 @@ namespace CSHSBackendAPI.Domain.Entities;
 
 public class BasicEdGrade : BaseEntity
 {
-    public long SchoolId { get; set; }
     public long CampusId { get; set; }
     public string SchoolYear { get; set; } = string.Empty;
     public long StudentId { get; set; }
@@ -28,8 +27,6 @@ public class BasicEdGrade : BaseEntity
     public long? ApprovedById { get; set; }
     public string? RejectionNote { get; set; }
 
-    // Relationships
-    public School School { get; set; } = null!;
     public Campus Campus { get; set; } = null!;
     public Student Student { get; set; } = null!;
     public SubjectLoad? SubjectLoad { get; set; }

@@ -28,7 +28,7 @@ public class Student : BaseEntity
     public long? ConvertedFromEnrollmentId { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Campus Campus { get; set; } = null!;
     public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
     public ICollection<BasicEdGrade> BasicEdGrades { get; set; } = new List<BasicEdGrade>();

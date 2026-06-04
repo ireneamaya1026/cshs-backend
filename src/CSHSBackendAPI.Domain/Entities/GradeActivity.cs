@@ -17,6 +17,6 @@ public class GradeActivity : BaseEntity
 
     // Relationships
     public SubjectLoad SubjectLoad { get; set; } = null!;
-    public School School { get; set; } = null!;
+     
     public ICollection<StudentActivityScore> StudentScores { get; set; } = new List<StudentActivityScore>();
 }

@@ -4,7 +4,6 @@ namespace CSHSBackendAPI.Domain.Entities;
 
 public class WorkflowAudit : BaseEntity
 {
-    public long SchoolId { get; set; }
     public string WorkflowId { get; set; } = string.Empty;
     public string EntityType { get; set; } = string.Empty;
     public long EntityId { get; set; }
@@ -16,7 +15,4 @@ public class WorkflowAudit : BaseEntity
     public string ByRole { get; set; } = string.Empty;
     public string? Note { get; set; }
     public DateTime RecordedAt { get; set; } = DateTime.UtcNow;
-
-    // Relationships
-    public School School { get; set; } = null!;
 }

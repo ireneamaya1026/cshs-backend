@@ -8,10 +8,7 @@ public class ClearanceConfiguration : IEntityTypeConfiguration<Clearance>
 {
     public void Configure(EntityTypeBuilder<Clearance> builder)
     {
-        builder.HasOne(c => c.School)
-            .WithMany()
-            .HasForeignKey(c => c.SchoolId)
-            .OnDelete(DeleteBehavior.Restrict);
+    
 
         builder.HasOne(c => c.Campus)
             .WithMany()

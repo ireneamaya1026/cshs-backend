@@ -6,5 +6,6 @@ public interface IJwtService
 {
     string GenerateToken(SystemUser user);
     string? GetSchoolSlugFromToken(string token);
+    long? GetUserIdFromToken(string token);
     bool ValidateToken(string token);
 }

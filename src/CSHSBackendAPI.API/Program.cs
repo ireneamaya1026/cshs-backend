@@ -1,9 +1,12 @@
 using System.Text;
 using CSHSBackendAPI.API.Middleware;
 using CSHSBackendAPI.Application.Auth.Commands.Login;
+using CSHSBackendAPI.Application.Auth.Commands.RefreshToken;
 using CSHSBackendAPI.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using CSHSBackendAPI.Application.Config.Queries.GetConfig;
+using CSHSBackendAPI.Application.Config.Commands.UpdateConfig;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Application Handlers
 builder.Services.AddScoped<LoginCommandHandler>();
 
+// Add this line
+builder.Services.AddScoped<RefreshTokenCommandHandler>();
+
 // JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -31,11 +37,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+            // Map "role" claim correctly
+            RoleClaimType = "role",
+            NameClaimType = "name"
         };
     });
 
+// Add handlers
+builder.Services.AddScoped<CSHSBackendAPI.Application.Config.Queries.GetConfig.GetConfigQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Config.Commands.UpdateConfig.UpdateConfigCommandHandler>();
+
 builder.Services.AddAuthorization();
+
+
 
 // CORS for React Frontend
 builder.Services.AddCors(options =>

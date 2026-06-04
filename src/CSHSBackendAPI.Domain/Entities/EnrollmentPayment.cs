@@ -21,6 +21,6 @@ public class EnrollmentPayment : BaseEntity
     // Relationships
     public Enrollment Enrollment { get; set; } = null!;
     public Student? Student { get; set; }
-    public School School { get; set; } = null!;
+     
     public SystemUser? RecordedBy { get; set; }
 }
