@@ -18,7 +18,7 @@ public class CampusConfiguration : IEntityTypeConfiguration<Campus>
             .IsRequired()
             .HasMaxLength(30);
 
-        builder.HasIndex(c => new { c.SchoolId, c.CampusKey })
+        builder.HasIndex(c => c.CampusKey)
             .IsUnique();
 
         builder.Property(c => c.Phone)

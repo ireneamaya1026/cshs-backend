@@ -20,6 +20,6 @@ public class FeeStructure : BaseEntity
     public bool IsActive { get; set; } = true;
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Campus? Campus { get; set; }
 }

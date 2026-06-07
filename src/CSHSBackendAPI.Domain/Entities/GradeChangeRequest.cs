@@ -5,7 +5,6 @@ namespace CSHSBackendAPI.Domain.Entities;
 
 public class GradeChangeRequest : BaseEntity
 {
-    public long SchoolId { get; set; }
     public long CampusId { get; set; }
     public string SchoolYear { get; set; } = string.Empty;
     public long StudentId { get; set; }
@@ -27,8 +26,6 @@ public class GradeChangeRequest : BaseEntity
     public long? PostedById { get; set; }
     public DateTime? PostedAt { get; set; }
 
-    // Relationships
-    public School School { get; set; } = null!;
     public Campus Campus { get; set; } = null!;
     public Student Student { get; set; } = null!;
     public SystemUser RequestedBy { get; set; } = null!;

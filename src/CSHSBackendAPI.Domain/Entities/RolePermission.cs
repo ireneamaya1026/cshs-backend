@@ -11,5 +11,5 @@ public class RolePermission : BaseEntity
     public long? UpdatedBy { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
+     
 }

@@ -12,63 +12,21 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Schools",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Uuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ShortName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Motto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PrimaryColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SecondaryColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LoginGradientStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LoginGradientEnd = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LoginAccentBar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LoginCardBorder = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PortalLabel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SupportLabel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PortalWelcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PortalTagline = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PortalBgStyle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mission = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Vision = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoalsJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CoreValuesJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    Plan = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schools", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Campuses",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     CampusKey = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ShortName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     HasBasicEd = table.Column<bool>(type: "bit", nullable: false),
                     HasCollege = table.Column<bool>(type: "bit", nullable: false),
                     CollegeProgramsJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     SortOrder = table.Column<short>(type: "smallint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -76,12 +34,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campuses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Campuses_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,12 +56,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Discounts_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,12 +75,45 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RolePermissions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolePermissions_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SchoolConfigs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LogoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Motto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WebsiteUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PrimaryColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SecondaryColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LoginGradientStart = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginGradientEnd = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginAccentBar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginCardBorder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PortalLabel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SupportLabel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PortalWelcome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PortalTagline = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PortalBgStyle = table.Column<int>(type: "int", nullable: false),
+                    Mission = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Vision = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GoalsJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoreValuesJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Plan = table.Column<int>(type: "int", nullable: false),
+                    PlanExpiresAt = table.Column<DateOnly>(type: "date", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SchoolConfigs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,12 +134,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SchoolYears", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SchoolYears_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,7 +142,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     WorkflowId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntityType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EntityId = table.Column<long>(type: "bigint", nullable: false),
@@ -187,12 +159,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkflowAudits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkflowAudits_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,12 +182,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkflowDefinitions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkflowDefinitions_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -253,12 +213,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_FeeStructures_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FeeStructures_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -302,12 +256,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalTable: "Campuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Students_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,7 +264,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     CampusId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
@@ -337,12 +284,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalTable: "Campuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SystemUsers_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -351,7 +292,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     CampusId = table.Column<long>(type: "bigint", nullable: false),
                     StudentId = table.Column<long>(type: "bigint", nullable: false),
                     SchoolYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -370,12 +310,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_Clearances_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Clearances_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -439,12 +373,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Enrollments_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Enrollments_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
@@ -470,12 +398,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PushTokens", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PushTokens_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PushTokens_Students_StudentId",
                         column: x => x.StudentId,
@@ -510,12 +432,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_Announcements_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Announcements_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -564,12 +480,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DocumentRequests_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_DocumentRequests_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
@@ -589,7 +499,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     FormType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FieldsJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -601,12 +510,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FormTemplates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FormTemplates_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FormTemplates_SystemUsers_CreatedById",
                         column: x => x.CreatedById,
@@ -647,12 +550,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_SubjectLoads_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SubjectLoads_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -726,12 +623,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_EnrollmentPayments_Enrollments_EnrollmentId",
                         column: x => x.EnrollmentId,
                         principalTable: "Enrollments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EnrollmentPayments_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -835,12 +726,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AttendanceRecords_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_AttendanceRecords_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
@@ -866,7 +751,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     CampusId = table.Column<long>(type: "bigint", nullable: false),
                     SchoolYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<long>(type: "bigint", nullable: false),
@@ -898,12 +782,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_BasicEdGrades_Campuses_CampusId",
                         column: x => x.CampusId,
                         principalTable: "Campuses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_BasicEdGrades_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -970,12 +848,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CollegeGrades_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_CollegeGrades_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
@@ -1017,12 +889,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_GradeActivities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GradeActivities_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_GradeActivities_SubjectLoads_SubjectLoadId",
                         column: x => x.SubjectLoadId,
                         principalTable: "SubjectLoads",
@@ -1036,7 +902,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolId = table.Column<long>(type: "bigint", nullable: false),
                     CampusId = table.Column<long>(type: "bigint", nullable: false),
                     SchoolYear = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<long>(type: "bigint", nullable: false),
@@ -1079,12 +944,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         name: "FK_GradeChangeRequests_CollegeGrades_CollegeGradeId",
                         column: x => x.CollegeGradeId,
                         principalTable: "CollegeGrades",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GradeChangeRequests_Schools_SchoolId",
-                        column: x => x.SchoolId,
-                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -1177,19 +1036,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcements_SchoolId",
-                table: "Announcements",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AttendanceRecords_CampusId",
                 table: "AttendanceRecords",
                 column: "CampusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AttendanceRecords_SchoolId",
-                table: "AttendanceRecords",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttendanceRecords_StudentId",
@@ -1212,11 +1061,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasicEdGrades_SchoolId",
-                table: "BasicEdGrades",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BasicEdGrades_StudentId",
                 table: "BasicEdGrades",
                 column: "StudentId");
@@ -1232,9 +1076,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Campuses_SchoolId_CampusKey",
+                name: "IX_Campuses_CampusKey",
                 table: "Campuses",
-                columns: new[] { "SchoolId", "CampusKey" },
+                column: "CampusKey",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -1253,11 +1097,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clearances_SchoolId",
-                table: "Clearances",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Clearances_StudentId",
                 table: "Clearances",
                 column: "StudentId");
@@ -1266,11 +1105,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 name: "IX_CollegeGrades_CampusId",
                 table: "CollegeGrades",
                 column: "CampusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CollegeGrades_SchoolId",
-                table: "CollegeGrades",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CollegeGrades_StudentId",
@@ -1288,11 +1122,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Discounts_SchoolId",
-                table: "Discounts",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DocumentRequests_CampusId",
                 table: "DocumentRequests",
                 column: "CampusId");
@@ -1301,11 +1130,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 name: "IX_DocumentRequests_ReleasedById",
                 table: "DocumentRequests",
                 column: "ReleasedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentRequests_SchoolId",
-                table: "DocumentRequests",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocumentRequests_StudentId",
@@ -1328,11 +1152,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "RecordedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnrollmentPayments_SchoolId",
-                table: "EnrollmentPayments",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EnrollmentPayments_StudentId",
                 table: "EnrollmentPayments",
                 column: "StudentId");
@@ -1341,11 +1160,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 name: "IX_Enrollments_CampusId",
                 table: "Enrollments",
                 column: "CampusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_SchoolId",
-                table: "Enrollments",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_StudentId",
@@ -1363,24 +1177,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FeeStructures_SchoolId",
-                table: "FeeStructures",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FormTemplates_CreatedById",
                 table: "FormTemplates",
                 column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FormTemplates_SchoolId",
-                table: "FormTemplates",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GradeActivities_SchoolId",
-                table: "GradeActivities",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GradeActivities_SubjectLoadId",
@@ -1413,34 +1212,14 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "RequestedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GradeChangeRequests_SchoolId",
-                table: "GradeChangeRequests",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GradeChangeRequests_StudentId",
                 table: "GradeChangeRequests",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PushTokens_SchoolId",
-                table: "PushTokens",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PushTokens_StudentId",
                 table: "PushTokens",
                 column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolePermissions_SchoolId",
-                table: "RolePermissions",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SchoolYears_SchoolId",
-                table: "SchoolYears",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentActivityScores_ActivityId",
@@ -1463,19 +1242,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Students_SchoolId",
-                table: "Students",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SubjectLoads_CampusId",
                 table: "SubjectLoads",
                 column: "CampusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubjectLoads_SchoolId",
-                table: "SubjectLoads",
-                column: "SchoolId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectLoads_TeacherId",
@@ -1488,20 +1257,10 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SystemUsers_SchoolId_Email",
+                name: "IX_SystemUsers_Email",
                 table: "SystemUsers",
-                columns: new[] { "SchoolId", "Email" },
+                column: "Email",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowAudits_SchoolId",
-                table: "WorkflowAudits",
-                column: "SchoolId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkflowDefinitions_SchoolId",
-                table: "WorkflowDefinitions",
-                column: "SchoolId");
         }
 
         /// <inheritdoc />
@@ -1542,6 +1301,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "RolePermissions");
+
+            migrationBuilder.DropTable(
+                name: "SchoolConfigs");
 
             migrationBuilder.DropTable(
                 name: "SchoolYears");
@@ -1587,9 +1349,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Campuses");
-
-            migrationBuilder.DropTable(
-                name: "Schools");
         }
     }
 }

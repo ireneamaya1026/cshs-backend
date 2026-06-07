@@ -18,7 +18,7 @@ public class UserConfiguration : IEntityTypeConfiguration<SystemUser>
             .IsRequired()
             .HasMaxLength(150);
 
-        builder.HasIndex(u => new { u.SchoolId, u.Email })
+        builder.HasIndex(u => u.Email)
             .IsUnique();
 
         builder.Property(u => u.PasswordHash)
@@ -26,5 +26,10 @@ public class UserConfiguration : IEntityTypeConfiguration<SystemUser>
 
         builder.Property(u => u.Role)
             .HasConversion<string>();
+
+        builder.HasOne(u => u.Campus)
+            .WithMany(c => c.SystemUsers)
+            .HasForeignKey(u => u.CampusId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

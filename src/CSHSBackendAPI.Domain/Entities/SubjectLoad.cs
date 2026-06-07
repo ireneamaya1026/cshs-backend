@@ -25,7 +25,7 @@ public class SubjectLoad : BaseEntity
     public bool IsActive { get; set; } = true;
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Campus Campus { get; set; } = null!;
     public SystemUser Teacher { get; set; } = null!;
     public ICollection<BasicEdGrade> BasicEdGrades { get; set; } = new List<BasicEdGrade>();

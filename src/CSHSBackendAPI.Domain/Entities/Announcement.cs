@@ -17,7 +17,7 @@ public class Announcement : BaseEntity
     public long? CreatedById { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Campus? Campus { get; set; }
     public SystemUser? CreatedBy { get; set; }
 }

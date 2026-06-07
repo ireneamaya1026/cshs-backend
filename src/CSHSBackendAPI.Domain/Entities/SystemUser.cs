@@ -5,7 +5,6 @@ namespace CSHSBackendAPI.Domain.Entities;
 
 public class SystemUser : BaseEntity
 {
-    public long SchoolId { get; set; }
     public long? CampusId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
@@ -16,6 +15,5 @@ public class SystemUser : BaseEntity
     public DateTime? LastLoginAt { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
     public Campus? Campus { get; set; }
 }

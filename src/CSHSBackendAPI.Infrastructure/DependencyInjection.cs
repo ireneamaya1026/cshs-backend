@@ -21,11 +21,20 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")));
 
         // Repositories
-        services.AddScoped<ISchoolRepository, SchoolRepository>();
+        services.AddScoped<ISchoolConfigRepository, SchoolConfigRepository>();
         services.AddScoped<IAuthRepository, AuthRepository>();
 
         // Services
         services.AddScoped<IJwtService, JwtService>();
+
+        // Add to repositories section
+        services.AddScoped<ISchoolConfigRepository, SchoolConfigRepository>();  
+
+        services.AddScoped<ICampusRepository, CampusRepository>();
+
+        services.AddScoped<ISchoolYearRepository, SchoolYearRepository>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

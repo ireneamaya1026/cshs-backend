@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<School> Schools { get; set; }
+    // public DbSet<School> Schools { get; set; }
     public DbSet<Campus> Campuses { get; set; }
     public DbSet<SchoolYear> SchoolYears { get; set; }
     public DbSet<SystemUser> SystemUsers { get; set; }
@@ -37,6 +37,8 @@ public class AppDbContext : DbContext
     public DbSet<Announcement> Announcements { get; set; }
     public DbSet<FormTemplate> FormTemplates { get; set; }
     public DbSet<PushToken> PushTokens { get; set; }
+
+    public DbSet<SchoolConfig> SchoolConfigs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

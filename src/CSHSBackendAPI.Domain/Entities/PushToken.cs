@@ -13,6 +13,6 @@ public class PushToken : BaseEntity
     public DateTime? LastUsedAt { get; set; }
 
     // Relationships
-    public School School { get; set; } = null!;
+     
     public Student? Student { get; set; }
 }

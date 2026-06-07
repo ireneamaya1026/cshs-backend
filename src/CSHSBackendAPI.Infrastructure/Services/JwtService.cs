@@ -21,11 +21,12 @@ public class JwtService : IJwtService
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.ToString()),
-            new Claim("campusId", user.CampusId?.ToString() ?? ""),
-            new Claim("fullName", user.Name)
+            new Claim("sub", user.Id.ToString()),
+            new Claim("name", user.Name),
+            new Claim("email", user.Email),
+            new Claim("role", user.Role.ToString()),
+            new Claim("campus_id", user.CampusId?.ToString() ?? ""),
+            new Claim("campus", user.Campus?.Name ?? "")
         };
 
         var token = new JwtSecurityToken(
@@ -40,11 +41,19 @@ public class JwtService : IJwtService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    public long? GetUserIdFromToken(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwt = handler.ReadJwtToken(token);
+        var claim = jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+        return claim != null ? long.Parse(claim) : null;
+    }
+
     public string? GetSchoolSlugFromToken(string token)
     {
         var handler = new JwtSecurityTokenHandler();
         var jwt = handler.ReadJwtToken(token);
-        return jwt.Claims.FirstOrDefault(c => c.Type == "schoolSlug")?.Value;
+        return jwt.Claims.FirstOrDefault(c => c.Type == "campus")?.Value;
     }
 
     public bool ValidateToken(string token)
