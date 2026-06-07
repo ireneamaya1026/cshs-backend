@@ -25,9 +25,13 @@ builder.Services.AddScoped<LoginCommandHandler>();
 builder.Services.AddScoped<RefreshTokenCommandHandler>();
 
 // JWT Authentication
+// JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
+        // Disable auto-mapping of claim types
+        options.MapInboundClaims = false;
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -38,7 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
-            // Map "role" claim correctly
+                
             RoleClaimType = "role",
             NameClaimType = "name"
         };
@@ -47,6 +51,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Add handlers
 builder.Services.AddScoped<CSHSBackendAPI.Application.Config.Queries.GetConfig.GetConfigQueryHandler>();
 builder.Services.AddScoped<CSHSBackendAPI.Application.Config.Commands.UpdateConfig.UpdateConfigCommandHandler>();
+
+builder.Services.AddScoped<CSHSBackendAPI.Application.Campuses.Queries.GetAllCampuses.GetAllCampusesQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Campuses.Commands.CreateCampus.CreateCampusCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Campuses.Commands.UpdateCampus.UpdateCampusCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Campuses.Commands.DeleteCampus.DeleteCampusCommandHandler>();
+
+builder.Services.AddScoped<CSHSBackendAPI.Application.SchoolYears.Queries.GetAllSchoolYears.GetAllSchoolYearsQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.SchoolYears.Commands.CreateSchoolYear.CreateSchoolYearCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.SchoolYears.Commands.UpdateSchoolYear.UpdateSchoolYearCommandHandler>();
+
+builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Queries.GetAllUsers.GetAllUsersQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Queries.GetCurrentUser.GetCurrentUserQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.CreateUser.CreateUserCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.UpdateUser.UpdateUserCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.ResetPassword.ResetPasswordCommandHandler>();
 
 builder.Services.AddAuthorization();
 

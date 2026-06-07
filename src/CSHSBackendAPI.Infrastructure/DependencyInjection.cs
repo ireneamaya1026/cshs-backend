@@ -30,6 +30,12 @@ public static class DependencyInjection
         // Add to repositories section
         services.AddScoped<ISchoolConfigRepository, SchoolConfigRepository>();  
 
+        services.AddScoped<ICampusRepository, CampusRepository>();
+
+        services.AddScoped<ISchoolYearRepository, SchoolYearRepository>();
+
+        services.AddScoped<IUserRepository, UserRepository>();
+
         return services;
     }
 }

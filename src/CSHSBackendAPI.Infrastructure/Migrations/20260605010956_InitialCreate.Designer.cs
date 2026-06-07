@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSHSBackendAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260509132549_InitialCreate")]
+    [Migration("20260605010956_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -76,8 +76,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("SchoolId");
-
                     b.ToTable("Announcements");
                 });
 
@@ -137,8 +135,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectLoadId");
@@ -187,9 +183,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<string>("RejectionNote")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("SchoolYear")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -234,8 +227,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("StudentId");
 
@@ -290,9 +281,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
@@ -304,7 +292,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId", "CampusKey")
+                    b.HasIndex("CampusKey")
                         .IsUnique();
 
                     b.ToTable("Campuses");
@@ -339,9 +327,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<DateTime>("RequestedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("SchoolYear")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -355,8 +340,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("StudentId");
 
@@ -508,8 +491,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectLoadId");
@@ -559,8 +540,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasColumnType("decimal(12,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Discounts");
                 });
@@ -645,8 +624,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasIndex("CampusId");
 
                     b.HasIndex("ReleasedById");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("StudentId");
 
@@ -821,8 +798,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("StudentId");
 
                     b.ToTable("Enrollments");
@@ -886,8 +861,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasIndex("EnrollmentId");
 
                     b.HasIndex("RecordedById");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("StudentId");
 
@@ -1007,8 +980,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId");
-
                     b.ToTable("FeeStructures");
                 });
 
@@ -1041,17 +1012,12 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("FormTemplates");
                 });
@@ -1099,8 +1065,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasColumnType("decimal(12,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("SubjectLoadId");
 
@@ -1214,9 +1178,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<decimal>("RequestedGrade")
                         .HasColumnType("decimal(12,2)");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("SchoolYear")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1243,8 +1204,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasIndex("CollegeGradeId");
 
                     b.HasIndex("RequestedById");
-
-                    b.HasIndex("SchoolId");
 
                     b.HasIndex("StudentId");
 
@@ -1286,8 +1245,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("StudentId");
 
                     b.ToTable("PushTokens");
@@ -1327,12 +1284,10 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
-
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.School", b =>
+            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SchoolConfig", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -1350,14 +1305,10 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GoalsJson")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LoginAccentBar")
                         .HasColumnType("nvarchar(max)");
@@ -1382,20 +1333,19 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Plan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PortalBgStyle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Plan")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly?>("PlanExpiresAt")
+                        .HasColumnType("date");
+
+                    b.Property<int>("PortalBgStyle")
+                        .HasColumnType("int");
 
                     b.Property<string>("PortalLabel")
                         .IsRequired()
@@ -1418,11 +1368,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Property<string>("ShortName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SupportLabel")
@@ -1432,9 +1377,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("Uuid")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Vision")
                         .HasColumnType("nvarchar(max)");
 
@@ -1443,7 +1385,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Schools");
+                    b.ToTable("SchoolConfigs");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SchoolYear", b =>
@@ -1480,8 +1422,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("SchoolYears");
                 });
@@ -1571,8 +1511,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CampusId");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Students");
                 });
@@ -1689,8 +1627,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId");
-
                     b.HasIndex("TeacherId");
 
                     b.ToTable("SubjectLoads");
@@ -1737,9 +1673,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -1747,7 +1680,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasIndex("CampusId");
 
-                    b.HasIndex("SchoolId", "Email")
+                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("SystemUsers");
@@ -1794,9 +1727,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Property<DateTime>("RecordedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("ToStep")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1809,8 +1739,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("WorkflowAudits");
                 });
@@ -1862,8 +1790,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SchoolId");
-
                     b.ToTable("WorkflowDefinitions");
                 });
 
@@ -1879,17 +1805,9 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Campus");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.AttendanceRecord", b =>
@@ -1897,12 +1815,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
                         .WithMany()
                         .HasForeignKey("CampusId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1924,8 +1836,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
 
                     b.Navigation("Student");
 
@@ -1942,12 +1852,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany("BasicEdGrades")
                         .HasForeignKey("StudentId")
@@ -1966,24 +1870,11 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Navigation("Campus");
 
-                    b.Navigation("School");
-
                     b.Navigation("Student");
 
                     b.Navigation("SubjectLoad");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany("Campuses")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Clearance", b =>
@@ -1994,12 +1885,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -2007,8 +1892,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
 
                     b.Navigation("Student");
                 });
@@ -2039,12 +1922,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany("CollegeGrades")
                         .HasForeignKey("StudentId")
@@ -2063,24 +1940,11 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Navigation("Campus");
 
-                    b.Navigation("School");
-
                     b.Navigation("Student");
 
                     b.Navigation("SubjectLoad");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Discount", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.DocumentRequest", b =>
@@ -2096,12 +1960,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("ReleasedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -2111,8 +1969,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Navigation("Campus");
 
                     b.Navigation("ReleasedBy");
-
-                    b.Navigation("School");
 
                     b.Navigation("Student");
                 });
@@ -2136,20 +1992,12 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
 
                     b.Navigation("Student");
                 });
@@ -2167,12 +2015,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("RecordedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -2181,8 +2023,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Navigation("Enrollment");
 
                     b.Navigation("RecordedBy");
-
-                    b.Navigation("School");
 
                     b.Navigation("Student");
                 });
@@ -2205,15 +2045,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("CampusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.FormTemplate", b =>
@@ -2223,32 +2055,16 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeActivity", b =>
                 {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.SubjectLoad", "SubjectLoad")
                         .WithMany("GradeActivities")
                         .HasForeignKey("SubjectLoadId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("School");
 
                     b.Navigation("SubjectLoad");
                 });
@@ -2288,12 +2104,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
@@ -2308,49 +2118,17 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Navigation("RequestedBy");
 
-                    b.Navigation("School");
-
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.PushToken", b =>
                 {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("School");
-
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.RolePermission", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SchoolYear", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany("SchoolYears")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Student", b =>
@@ -2361,15 +2139,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.StudentActivityScore", b =>
@@ -2401,14 +2171,8 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.SubjectLoad", b =>
                 {
                     b.HasOne("CSHSBackendAPI.Domain.Entities.Campus", "Campus")
-                        .WithMany()
+                        .WithMany("SubjectLoads")
                         .HasForeignKey("CampusId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2420,8 +2184,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
 
                     b.Navigation("Campus");
 
-                    b.Navigation("School");
-
                     b.Navigation("Teacher");
                 });
 
@@ -2432,37 +2194,7 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                         .HasForeignKey("CampusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany("SystemUsers")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Campus");
-
-                    b.Navigation("School");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowAudit", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.WorkflowDefinition", b =>
-                {
-                    b.HasOne("CSHSBackendAPI.Domain.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Campus", b =>
@@ -2470,6 +2202,8 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
                     b.Navigation("Enrollments");
 
                     b.Navigation("Students");
+
+                    b.Navigation("SubjectLoads");
 
                     b.Navigation("SystemUsers");
                 });
@@ -2499,15 +2233,6 @@ namespace CSHSBackendAPI.Infrastructure.Migrations
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.GradeChangeRequest", b =>
                 {
                     b.Navigation("Audits");
-                });
-
-            modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.School", b =>
-                {
-                    b.Navigation("Campuses");
-
-                    b.Navigation("SchoolYears");
-
-                    b.Navigation("SystemUsers");
                 });
 
             modelBuilder.Entity("CSHSBackendAPI.Domain.Entities.Student", b =>

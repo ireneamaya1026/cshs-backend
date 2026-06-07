@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSHSBackendAPI.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b9080d0e0ddfae349b183b4672cbd8a04294c39")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5eb629dc3840510d2a273f9d92d7a841b815ae3")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSHSBackendAPI.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSHSBackendAPI.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

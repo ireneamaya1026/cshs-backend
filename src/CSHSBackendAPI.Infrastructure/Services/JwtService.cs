@@ -24,7 +24,7 @@ public class JwtService : IJwtService
             new Claim("sub", user.Id.ToString()),
             new Claim("name", user.Name),
             new Claim("email", user.Email),
-            new Claim("role", user.Role.ToString().ToLower()),
+            new Claim("role", user.Role.ToString()),
             new Claim("campus_id", user.CampusId?.ToString() ?? ""),
             new Claim("campus", user.Campus?.Name ?? "")
         };

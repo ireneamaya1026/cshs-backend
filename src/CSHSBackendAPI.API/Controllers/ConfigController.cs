@@ -22,7 +22,6 @@ public class ConfigController : ControllerBase
         _getHandler = getHandler;
         _updateHandler = updateHandler;
     }
-
     // GET /api/config
     [HttpGet]
     public async Task<IActionResult> Get()
