@@ -67,6 +67,17 @@ builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.CreateUser.
 builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.UpdateUser.UpdateUserCommandHandler>();
 builder.Services.AddScoped<CSHSBackendAPI.Application.Users.Commands.ResetPassword.ResetPasswordCommandHandler>();
 
+builder.Services.AddScoped<CSHSBackendAPI.Application.Enrollments.Queries.GetAllEnrollments.GetAllEnrollmentsQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Enrollments.Queries.GetEnrollmentById.GetEnrollmentByIdQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Enrollments.Commands.CreateEnrollment.CreateEnrollmentCommandHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Enrollments.Commands.AdvanceEnrollment.AdvanceEnrollmentCommandHandler>();
+
+builder.Services.AddScoped<CSHSBackendAPI.Application.Students.Queries.GetAllStudents.GetAllStudentsQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Students.Queries.GetStudentById.GetStudentByIdQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Students.Queries.GetStudentGrades.GetStudentGradesQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Students.Queries.GetStudentAttendance.GetStudentAttendanceQueryHandler>();
+builder.Services.AddScoped<CSHSBackendAPI.Application.Students.Commands.UpdateStudent.UpdateStudentCommandHandler>();
+
 builder.Services.AddAuthorization();
 
 
