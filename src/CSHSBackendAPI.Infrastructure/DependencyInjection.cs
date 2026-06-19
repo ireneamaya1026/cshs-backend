@@ -41,6 +41,20 @@ public static class DependencyInjection
 
         services.AddScoped<IStudentRepository, StudentRepository>();
 
+        services.AddScoped<IGradeRepository, GradeRepository>();
+
+        services.AddScoped<IGradeChangeRepository, GradeChangeRepository>();
+
+        services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+        
+        services.AddScoped<ISubjectLoadRepository, SubjectLoadRepository>();
+
+        services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<IClearanceRepository, ClearanceRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IFeeRepository, FeeRepository>();
+        services.AddScoped<IWorkflowAuditRepository, WorkflowAuditRepository>();
+
         return services;
     }
 }
