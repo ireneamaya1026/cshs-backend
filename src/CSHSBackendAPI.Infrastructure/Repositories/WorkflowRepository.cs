@@ -11,7 +11,16 @@ public class WorkflowRepository : IWorkflowRepository
 
     public WorkflowRepository(AppDbContext context) => _context = context;
 
+    public async Task<IEnumerable<WorkflowDefinition>> GetAllAsync() =>
+        await _context.WorkflowDefinitions.OrderBy(w => w.Label).ToListAsync();
+
     public async Task<WorkflowDefinition?> GetByWorkflowIdAsync(string workflowId) =>
         await _context.WorkflowDefinitions
-            .FirstOrDefaultAsync(w => w.WorkflowId == workflowId && !w.IsLocked);
+            .FirstOrDefaultAsync(w => w.WorkflowId == workflowId);
+
+    public async Task UpdateAsync(WorkflowDefinition workflow)
+    {
+        _context.WorkflowDefinitions.Update(workflow);
+        await _context.SaveChangesAsync();
+    }
 }
